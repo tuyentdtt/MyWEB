@@ -59,9 +59,6 @@ const mongosee = require('mongoose');
 const { ObjectID } = require('mongodb');
 
 
-//const uri = "mongodb+srv://AdminATN:123456ATN@cluster0-bqt2b.mongodb.net/ATN-Shop?retryWrites=true&w=majority";
-
-//const uri = "mongodb+srv://quangviet:MnsvETND7GAdPS6V@cluster0-bqt2b.mongodb.net/ATN-Shop?retryWrites=true&w=majority";
 
 const uri = "mongodb+srv://quangviet:MnsvETND7GAdPS6V@cluster0.eupmk.mongodb.net/ATN-Shop?retryWrites=true&w=majority";
 /// ***************** ***************** *****************
@@ -264,6 +261,13 @@ function viewPayment(request, response) {
     response.render("payment", {productlist : arrBill });
            
 }
+
+app.get('/bill', viewBill);
+function viewBill(request, response) {
+    response.render("bill");
+}
+
+
 
 app.get('/load', chuyentiep);
 function chuyentiep(req,res)
@@ -528,7 +532,7 @@ function insertdata(req,res)
   })
   .catch(error => console.error(error));
 
-  res.redirect("/");
+  res.redirect("/bill");
 }
 
 
