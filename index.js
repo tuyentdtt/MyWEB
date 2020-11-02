@@ -6,10 +6,6 @@ var path = require('path');
 ObjectId = require('mongodb').ObjectID;
 
 
-//mongodb
-//tk: quangviet
-//mk: MnsvETND7GAdPS6V
-
 var bodyParser = require('body-parser');
 
 // parse application/json 
@@ -60,7 +56,7 @@ const { ObjectID } = require('mongodb');
 
 
 
-const uri = "mongodb+srv://quangviet:MnsvETND7GAdPS6V@cluster0.eupmk.mongodb.net/ATN-Shop?retryWrites=true&w=majority";
+const uri = "mongodb+srv://ductuyen:fTrh4QO0ztOPGVaY@cluster0.dqiwd.mongodb.net/ATN-Shop?retryWrites=true&w=majority";
 /// ***************** ***************** *****************
 /// ***************** Database & Bảng dữ liệu cần Truy vấn
 const NameDataBase = "ATN-Shop";
@@ -535,6 +531,50 @@ function insertdata(req,res)
   res.redirect("/bill");
 }
 
+
+app.get('/admin', viewAdmin);
+function viewAdmin(req,res)
+{
+    // res.render("admin")
+    blockPayment = 0 ;
+    arrBill = [];
+    responseDB(res, "admin",
+				Product, {}, {}, "productlist");
+}
+
+app.get('/admin/new', viewAdminNew);
+function viewAdminNew(req,res)
+{
+    // res.render("admin")
+    blockPayment = 0 ;
+    arrBill = [];
+    responseDB(res, "adminNew",
+				Product, {}, {}, "productlist");
+}
+
+app.post('/admin/new', function (req, res) {
+    var body = req.body;
+    
+        /// --------------------Insert-------------------------
+    MongoClient.connect(uri, { useUnifiedTopology: true })
+    .then (client => {
+    var dbo = client.db(NameDataBase);
+    
+    dbo.collection("Products").insertOne(body)
+        .then (result => {
+            console.log(result);
+            client.close();
+        })
+        .catch(error => console.error(error));
+    })
+    .catch(error => console.error(error));
+
+
+    console.log(body);
+
+    res.redirect('/admin');
+    
+});
 
 
 app.set('views', path.join(__dirname, './views'));

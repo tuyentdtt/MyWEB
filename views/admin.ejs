@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-----------------------------Header---------------------------------->
+<head>
+  <%- include('partials/header') -%>
+  <title>Page Product</title>
+</head>
+
+<!-----------------------------Body---------------------------------->
+<body>
+  <!-------------------------Menu------------------------------------>
+
+
+  <br> <br> <br> <br>
+  <hr>
+
+
+  <h2>Admin</h2>
+
+  <div  >
+    <a href="/admin/new"><b>Add new product</b></a>
+
+    <table border="1px">
+        <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Information</th>
+            <th>Img</th>
+            <th></th>
+        </tr>
+
+        <% for (var i = 0; i < productlist.length; i++) { %>
+        <tr>
+            <td><H3><%= productlist[i].Product_name %></H3></td>
+            <td><%= productlist[i].Price%></td>
+            <td><%= productlist[i].Discription%></td>
+            <td><img width="150px" height="200px" src="<%= productlist[i].Product_image%>"></td>
+            <td><button onclick="location.href='/admin/delete?product=<%= productlist[i]._id %>'" type="button"  >Delete</button></td>
+        </tr>
+        <% } %>
+    </table>
+  </div>
+  
+ 
+  <br> <br> <br> <br>
+    
+    <br> <br> <br> <br>
+    <br> <br> <br> <br>
+    <br> <br> <br> <br>
+  
+    <hr>
+
+  <!------------------------------------Footer----------------------------------------->
+  <footer>
+    <%- include('partials/footer') -%>
+  </footer>
+
+
+</body>
+</html>
